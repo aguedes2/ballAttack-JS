@@ -5,21 +5,20 @@ var show = true
 var blink = false
 class Player {
   constructor(x, y, radius) {
+    this.life = 2
     this.x = x
     this.y = y
     this.radius = radius
-    this.life = 2
     this.isHitting = false
     this.alpha = 1
   }
 
   init() {
-    new Player(
-      window.innerWidth / 2 - 5,
-      window.innerHeight - 20,
-      10,
-      this.color
-    )
+    this.x = window.innerWidth / 2 - 5
+    this.y = window.innerHeight - 20
+    this.life = 2
+    this.isHitting = false
+    this.alpha = 1
   }
 
   draw() {
