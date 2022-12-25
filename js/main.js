@@ -11,19 +11,13 @@ const gameModal = document.querySelector('#modalEl')
 const gameOverScore = document.querySelector('#end-score')
 
 //sounnds
-let shot = new Audios('../assets/laser_04.mp3')
-
+const shot = new Audios('laser_04.mp3')
 const music = new Audios('theblackframe.mp3')
 music.loop = true
 const game_over = new Audios('game_over.wav')
 const player_hit = new Audios('arcade_action.wav')
 const explosion = new Audios('hard_impact_alarm.mp3')
 const enemy_hit = new Audios('dropped.mp3')
-music.preload = 'auto'
-game_over.preload = 'auto'
-player_hit.preload = 'auto'
-explosion.preload = 'auto'
-enemy_hit.preload = 'auto'
 
 CANVAS.width = WIDTH
 CANVAS.height = HEIGHT
@@ -227,3 +221,12 @@ function animate() {
   particleInteraction()
   spawnParticles()
 }
+
+addEventListener('keydown', (e) => {
+  console.log(e.key)
+  if (e.key === '+') {
+    music.turnUp
+  } else if (e.key === '-') {
+    music.turnDown
+  }
+})
