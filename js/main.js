@@ -11,7 +11,7 @@ const gameModal = document.querySelector('#modalEl')
 const gameOverScore = document.querySelector('#end-score')
 
 //sounnds
-const shot = new Audios('laser_04.mp3')
+let shot = new Audios('../assets/laser_04.mp3')
 
 const music = new Audios('theblackframe.mp3')
 music.loop = true
@@ -19,7 +19,6 @@ const game_over = new Audios('game_over.wav')
 const player_hit = new Audios('arcade_action.wav')
 const explosion = new Audios('hard_impact_alarm.mp3')
 const enemy_hit = new Audios('dropped.mp3')
-shot.preload = 'auto'
 music.preload = 'auto'
 game_over.preload = 'auto'
 player_hit.preload = 'auto'

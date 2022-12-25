@@ -2,10 +2,12 @@ class Audios {
   constructor(file) {
     this.clip = new Audio(`../assets/${file}`)
     this.clip.volume = 0.3
+    this.clip.preload = true
   }
 
   play() {
-    this.clip.play()
+    console.log(this.clip.readyState)
+    if (this.clip.readyState === 4) this.clip.play()
   }
 
   pause() {
