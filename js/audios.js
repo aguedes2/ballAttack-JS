@@ -2,7 +2,7 @@ class Audios {
   constructor(file) {
     this.clip = new Audio(`../assets/${file}`)
     this.clip.volume = 0.3
-    this.clip.preload = true
+    this.clip.load()
   }
 
   play() {
