@@ -1,13 +1,18 @@
 class Audios {
   constructor(file) {
     this.clip = new Audio(`../assets/${file}`)
-    this.clip.volume = 0.3
-    this.clip.load()
   }
 
-  play() {
-    console.log(this.clip.readyState)
-    if (this.clip.readyState === 4) this.clip.play()
+  async play() {
+    await this.load().then(() => {
+      this.clip.volume = 0.3
+      this.clip.play()
+    })
+  }
+
+  async load() {
+    this.clip.preload = true
+    this.clip.load()
   }
 
   pause() {
