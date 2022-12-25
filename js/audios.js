@@ -1,12 +1,15 @@
 class Audios {
   constructor(file) {
-    this.clip = new Audio(`../assets/${file}`)
+    let audio = document.createElement('audio')
+    audio.src = `../assets/${file}`
+    this.clip = audio
   }
 
   async play() {
     await this.load().then(() => {
       this.clip.volume = 0.3
       this.clip.play()
+      console.log(this.clip)
     })
   }
 
