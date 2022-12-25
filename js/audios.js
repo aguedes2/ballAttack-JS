@@ -7,9 +7,7 @@ class Audios {
 
   async play() {
     await this.load().then(() => {
-      this.clip.volume = 0.3
       this.clip.play()
-      console.log(this.clip)
     })
   }
 
