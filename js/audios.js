@@ -1,6 +1,6 @@
 class Audios {
   constructor(file) {
-    let audio = document.createElement('audio')
+    let audio = new Audio()
     audio.src = `../assets/${file}`
     this.clip = audio
   }
@@ -11,7 +11,7 @@ class Audios {
     })
   }
 
-  async load() {
+  load() {
     this.clip.preload = true
     this.clip.load()
   }

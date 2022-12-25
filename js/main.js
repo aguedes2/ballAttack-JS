@@ -10,13 +10,12 @@ const starGameBtn = document.querySelector('#start-game-El')
 const gameModal = document.querySelector('#modalEl')
 const gameOverScore = document.querySelector('#end-score')
 
-//sounnds
-const shot = new Audios('laser_04.mp3')
+//sons
 const music = new Audios('theblackframe.mp3')
-music.loop = true
 const game_over = new Audios('game_over.wav')
-const player_hit = new Audios('arcade_action.wav')
+const shot = new Audios('impact_laser.mp3')
 const explosion = new Audios('hard_impact_alarm.mp3')
+const player_hit = new Audios('arcade_action.wav')
 const enemy_hit = new Audios('dropped.mp3')
 
 CANVAS.width = WIDTH
