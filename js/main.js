@@ -5,12 +5,6 @@ import Particle from './particle.js'
 import Enemy from './enemies.js'
 import Score from './score.js'
 
-import { CANVAS, CONTEXT, WIDTH, HEIGHT } from './constatns.js'
-
-const starGameBtn = document.querySelector('#start-game-El')
-const gameModal = document.querySelector('#modalEl')
-const gameOverScore = document.querySelector('#end-score')
-
 //sons
 const music = new Audios('theblackframe.mp3')
 const game_over = new Audios('game_over.wav')
@@ -18,6 +12,14 @@ const shot = new Audios('impact_laser.mp3')
 const explosion = new Audios('hard_impact_alarm.mp3')
 const player_hit = new Audios('arcade_action.wav')
 const enemy_hit = new Audios('dropped.mp3')
+
+
+import { CANVAS, CONTEXT, WIDTH, HEIGHT } from './constatns.js'
+
+const starGameBtn = document.querySelector('#start-game-El')
+const gameModal = document.querySelector('#modalEl')
+const gameOverScore = document.querySelector('#end-score')
+
 
 CANVAS.width = WIDTH
 CANVAS.height = HEIGHT
