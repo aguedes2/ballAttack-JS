@@ -1,7 +1,7 @@
 class Audios {
   constructor(file) {
     let audio = new Audio()
-    audio.src = `https://github.com/aguedes2/ballAttack-JS/blob/main/assets/${file}/`
+    audio.src = `./assets/${file}/`
     this.clip = audio
   }
 
