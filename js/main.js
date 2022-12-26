@@ -1,9 +1,10 @@
+import Audios from './audios.js'
 import Player from './player.js'
 import Projectile from './projectile.js'
 import Particle from './particle.js'
 import Enemy from './enemies.js'
 import Score from './score.js'
-import Audios from './audios.js'
+
 import { CANVAS, CONTEXT, WIDTH, HEIGHT } from './constatns.js'
 
 const starGameBtn = document.querySelector('#start-game-El')
