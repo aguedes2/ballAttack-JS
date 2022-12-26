@@ -22,13 +22,14 @@ CANVAS.width = WIDTH
 CANVAS.height = HEIGHT
 const center_x = WIDTH / 2
 
+var level = 1
+
 //Entities
 var player = new Player(center_x - 5, HEIGHT - 20, 10)
 var enemies = []
 var projectiles = []
 var particles = []
 
-var qtdEnemies = 5
 var status = ''
 var points = 0
 var score = new Score(points)
@@ -59,8 +60,9 @@ addEventListener('mousemove', (e) => {
 
 function playerLost() {
   if (player.isLost()) {
-    status = 'Game Over'
     cancelAnimationFrame(animationID)
+    status = 'Game Over'
+    level = 1
     music.stop()
     game_over.play()
     player.life = 2
@@ -73,18 +75,71 @@ function playerLost() {
 
 //enemies
 function spawnEnemies(array) {
+  let stage = level
+  let type
+  let secondType
+  let qtdEnemies
+  switch (stage) {
+    case 1:
+      type = 1
+      qtdEnemies = 5
+      break
+    case 2:
+      type = 2
+      qtdEnemies = 7
+      break
+    case 3:
+      type = 3
+      qtdEnemies = 9
+      break
+    case 4:
+      type = 4
+      qtdEnemies = 8
+      break
+    case 5:
+      type = 1
+      secondType = 2
+      qtdEnemies = 5
+      break
+    case 6:
+      type = 2
+      secondType = 3
+      qtdEnemies = 8
+      break
+    case 7:
+      type = 3
+      secondType = 4
+      qtdEnemies = 8
+      break
+    case 8:
+      type = 1
+      secondType = 3
+      qtdEnemies = 10
+      break
+
+    default:
+      break
+  }
+
   for (let i = 0; i < qtdEnemies; i++) {
     let x = Math.random() * ((WIDTH * 3) / 4)
     let y = 100
     let radius = 20
     let color = `hsl(${Math.random() * 360}, 50%, 35%)`
-    let velocity = { x: Math.random() * 5, y: Math.random() * 5 }
+    let velocity = { x: Math.random() * 3, y: Math.random() * 3 }
 
     let dir = {
       x: Math.random() < 0.5 ? -1 : 1,
       y: Math.random() < 0.5 ? -1 : 1
     }
-    array.push(new Enemy(x, y, radius, color, velocity, dir))
+    let enemy1 = new Enemy(x, y, radius, type, color, velocity, dir)
+    enemy1.setType(type)
+    array.push(enemy1)
+    if (level > 4) {
+      let enemy2 = new Enemy(x, y, radius, secondType, color, velocity, dir)
+      enemy2.setType(secondType)
+      array.push(enemy2)
+    }
   }
 }
 //end enemies
@@ -132,6 +187,9 @@ function enemyPlayerInteractions() {
       enemies.splice(index, 1)
       points += 250
       explosion.play()
+      if (enemies.length == 0) {
+        setTimeout(nextLevel(), 3000)
+      }
     }
   })
 }
@@ -165,7 +223,7 @@ function particleInteraction() {
             new Particle(
               projectile.x,
               projectile.y,
-              Math.random() * 3,
+              Math.random() * 5,
               enemy.color,
               {
                 x: dirX,
@@ -180,17 +238,20 @@ function particleInteraction() {
 
     function becameOtherEnemy(enemy) {
       explosion.currentTime = 0
-      if (enemy.radius > 10) {
-        let radius = enemy.radius / 2
-        let color = `hsl(${Math.random() * 360}, 50%, 50%)`
+      if (enemy.life > 0 && enemy.type > 1) {
+        console.log(enemy.type)
+        let newType = enemy.bacameAnotherEnemy()
+        let radius = enemy.radius
+        let color = enemy.color
         for (let index = 0; index < 2; index++) {
           enemies.push(
             new Enemy(
               enemy.x,
               enemy.y,
               radius,
+              newType,
               color,
-              { x: Math.random() * 4, y: Math.random() * 4 },
+              { x: enemy.velocity.x, y: enemy.velocity.y },
               {
                 x: Math.random() > 0.5 ? 1 : -1,
                 y: Math.random() > 0.5 ? 1 : -1
@@ -199,7 +260,6 @@ function particleInteraction() {
           )
         }
       } else {
-        enemy.life = 0
         explosion.play()
       }
     }
@@ -223,9 +283,20 @@ function animate() {
 
 addEventListener('keydown', (e) => {
   if (e.key === '+') {
-    console.log(e.key)
     music.turnUp()
   } else if (e.key === '-') {
     music.turnDown()
   }
 })
+
+function nextLevel() {
+  if (level < 9 && enemies.length == 0) {
+    status = 'Novo Level'
+    music.stop()
+    level++
+    console.log(level)
+
+    status = 'Playing'
+    setTimeout(init(), 1500)
+  }
+}

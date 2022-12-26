@@ -1,7 +1,7 @@
 import { CONTEXT as ctx, WIDTH, HEIGHT } from './constatns.js'
 
 class Enemy {
-  constructor(x, y, radius, color, velocity, dir) {
+  constructor(x, y, radius, type, color, velocity, dir) {
     this.x = x
     this.y = y
     this.radius = radius
@@ -14,7 +14,8 @@ class Enemy {
       x: dir.x,
       y: dir.y
     }
-    this.life = 20
+    this.life = 2
+    this.setType(type)
   }
 
   draw() {
@@ -56,6 +57,54 @@ class Enemy {
     if (this.life <= 0) {
       return true
     }
+  }
+
+  setType(type) {
+    switch (type) {
+      case 1:
+        this.color = 'rgb(10, 50, 215)'
+        this.radius = 25
+        this.velocity = {
+          x: Math.random() * 2,
+          y: Math.random() * 2
+        }
+        break
+      case 2:
+        this.color = 'rgb(50, 215, 10)'
+        this.radius = 22
+        this.velocity = {
+          x: Math.random() * 2,
+          y: Math.random() * 2
+        }
+        break
+      case 3:
+        this.color = 'rgb(215, 50, 10)'
+        this.radius = 20
+        this.velocity = {
+          x: Math.random() * 3,
+          y: Math.random() * 3
+        }
+        break
+      case 4:
+        this.color = 'rgb(215, 150, 10)'
+        this.radius = 18
+        this.velocity = {
+          x: Math.random() * 3,
+          y: Math.random() * 3
+        }
+        break
+
+      default:
+        break
+    }
+  }
+
+  bacameAnotherEnemy() {
+    let newType
+    if (this.type > 1) {
+      newType = this.type - 1
+    }
+    return newType
   }
 }
 
