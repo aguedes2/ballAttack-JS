@@ -222,10 +222,10 @@ function animate() {
 }
 
 addEventListener('keydown', (e) => {
-  console.log(e.key)
   if (e.key === '+') {
-    music.turnUp
+    console.log(e.key)
+    music.turnUp()
   } else if (e.key === '-') {
-    music.turnDown
+    music.turnDown()
   }
 })

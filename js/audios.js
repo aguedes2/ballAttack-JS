@@ -5,10 +5,19 @@ class Audios {
     this.clip = audio
   }
 
-  async play() {
-    await this.load().then(() => {
-      this.clip.play()
-    })
+  play() {
+    this.load()
+    var playPrimise = this.clip.play()
+
+    if (playPrimise !== undefined) {
+      playPrimise
+        .then((_) => {
+          this.clip.play()
+        })
+        .catch((error) => {
+          console.log('Erro: ', error.message)
+        })
+    }
   }
 
   load() {
